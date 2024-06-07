@@ -37,7 +37,7 @@ jobs:
       id: build
       uses: docker/build-push-action@v4
       with:
-        context: example-voting-app/vote
+        context: vote/
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/vote-app:${{ github.sha }}
