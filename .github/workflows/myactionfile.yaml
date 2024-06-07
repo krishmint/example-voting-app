@@ -1,0 +1,50 @@
+name: Build Vote
+on:
+  # trigger when a commit is pushed or a pull req is accepted
+  push:
+    branches:
+      - 'main'
+    # only build when bellow mentioned files change
+    paths:
+      - 'vote/**'
+      - '.github/workflows/myactionfile.yaml'
+  pull_request:
+    branches:
+      - 'main'
+    # only build when important files change
+    paths:
+      - 'vote/**'
+      - '.github/workflows/myactionfile.yaml'
+
+jobs:
+   build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image
+      id: build
+      uses: docker/build-push-action@v4
+      with:
+        context: example-voting-app/vote
+        push: true
+        tags: |
+          ${{ secrets.DOCKER_USERNAME }}/vote-app:${{ github.sha }}
+
+    - name: Logout from Docker Hub
+      run: docker logout
+
+    - name: Update Kubernetes deployment
+      run: |
+        sed -i 's|image:.*|image: ${{ secrets.DOCKER_USERNAME }}/vote-app:${{ github.sha }}|g' k8s-specifications/vote-deployment.yaml
