@@ -15,7 +15,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_vote
+      - image: krishmint/vote-app:eb67e58aa7ce80523a8afcb3856cf42c1b5e5a7e
         name: vote
         ports:
         - containerPort: 80
