@@ -15,8 +15,13 @@ spec:
         app: vote
     spec:
       containers:
-      - image: krishmint/vote-app:eb67e58aa7ce80523a8afcb3856cf42c1b5e5a7e
+      - image: krishmint/votingproj-voteapp:v2
         name: vote
         ports:
-        - containerPort: 80
+        - containerPort: 5000
           name: vote
+        env:
+        - name: REDIS_HOST
+          value: "10.47.5.235"
+        - name: REDIS_PORT
+          value: "6379"

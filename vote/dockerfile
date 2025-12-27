@@ -1,0 +1,25 @@
+FROM python:3.11-slim AS base
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir  -r requirements.txt
+
+COPY . .
+
+ENV REDIS_HOST=10.47.5.235
+ENV REDIS_PORT=6379
+
+EXPOSE 5000
+
+RUN useradd -m appuser
+
+USER appuser
+
+# Define our command to be run when launching the container
+ENTRYPOINT ["gunicorn"]
+
+CMD ["-b", "0.0.0.0:5000", "--log-file", "-", "--access-logfile", "-", "--workers", "2", "--keep-alive", "0", "app:app"]
+
+

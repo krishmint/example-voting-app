@@ -17,3 +17,14 @@ spec:
       containers:
       - image: dockersamples/examplevotingapp_worker
         name: worker
+        env:
+        - name: REDIS_HOST
+          value: "10.47.5.235" 
+        - name: POSTGRES_HOST
+          value: "db"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "postgres"
+        - name: POSTGRES_DB
+          value: "postgres"
