@@ -22,4 +22,4 @@ spec:
           name: result
         env:
         - name: DATABASE_URL
-          value: "postgres://postgres:postgres@db/postgres"
+          value: "postgres://postgres:Krish@0303@10.174.240.3/postgres"
