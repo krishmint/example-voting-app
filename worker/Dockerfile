@@ -22,11 +22,11 @@ FROM mcr.microsoft.com/dotnet/runtime:7.0
 WORKDIR /app
 COPY --from=build /app .
 
-ENV POSTGRES_HOST=db
+ENV POSTGRES_HOST=10.174.240.3
 ENV POSTGRES_PORT=5432
 ENV POSTGRES_DB=postgres
 ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=postgres  
+ENV POSTGRES_PASSWORD=Krish@0303  
 ENV REDIS_HOST=10.47.5.235
 
 ENTRYPOINT ["dotnet", "Worker.dll"]
