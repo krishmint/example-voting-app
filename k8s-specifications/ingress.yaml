@@ -2,22 +2,37 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: voting-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  
+    acme.cert-manager.io/http01-edit-in-place: "true"   # required for gce ingress compatibility, cert manager use this ingress instead of temporary ingress for http01 ch                                                        # challange
+    cert-manager.io/issue-temporary-certificate: "true" # required for gce ingress compatibility with cert manager http01 challange
 spec:
   ingressClassName: gce
+  tls:
+  - hosts:
+    - result.sikkho.co.in
+    - vote.sikkho.co.in
+    secretName: example-tls
+      
   rules:
-  - http:
+  - host: vote.sikkho.co.in  
+    http:
       paths:
-      - path: /vote
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: vote
             port:
               number: 5000
-      - path: /results
+  - host: result.sikkho.co.in  
+    http:
+      paths:
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: result
             port:
-              number: 80
+              number: 8080

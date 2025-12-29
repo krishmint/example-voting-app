@@ -15,11 +15,10 @@ spec:
         app: result
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_result
+      - image: krishmint/votingproj-resultapp:v1
         name: result
         ports:
         - containerPort: 80
-          name: result
         env:
         - name: DATABASE_URL
           value: "postgres://postgres:Krish@0303@10.174.240.3/postgres"
