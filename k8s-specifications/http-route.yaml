@@ -4,7 +4,8 @@ metadata:
   name: vote-app-route
 spec:
   parentRefs:
-  - name: app-api-gateway   # Must match the Gateway name above
+  - name: app-api-gateway
+    sectionName: https   # Must match the Gateway name above
   
   hostnames:
   - vote.sikkho.co.in      #for other host such as "result.sikkho.co.in we need to create seperate route resoyrce"
