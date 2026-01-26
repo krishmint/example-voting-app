@@ -10,10 +10,12 @@ spec:
   - name: http
     protocol: HTTP
     port: 80
+    hostname: "vote.sikkho.co.in"
   
   - name: https
     protocol: HTTPS
     port: 443
+    hostname: "vote.sikkho.co.in"
     tls:
       mode: Terminate
       certificateRefs:
