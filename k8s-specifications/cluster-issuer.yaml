@@ -10,5 +10,17 @@ spec:
       name: letsencrypt-prod
     solvers:
     - http01:
-        ingress:
-          class: gce
+        gatewayHTTPRoute:
+          parentRefs:
+          - kind: Gateway
+            name: voting-api-gateway
+            namespace: default
+      
+    
+    
+    
+
+
+    # - http01:      ## for ingress based http01 challenge
+    #     ingress:
+    #       class: gce

@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+spec:
+  parentRefs:
+  - name: app-api-gateway
+    sectionName: http   # attach ONLY to HTTP listener
+
+  hostnames:
+  - vote.sikkho.co.in
+  - result.sikkho.co.in
+
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301

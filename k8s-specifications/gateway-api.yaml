@@ -1,12 +1,22 @@
 kind: Gateway
 apiVersion: gateway.networking.k8s.io/v1
 metadata:
-  name: voting-api-gateway
+  name: app-api-gateway
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   gatewayClassName: gke-l7-global-external-managed  # Use 'gke-l7-rilb' for internal
   listeners:
   - name: http
     protocol: HTTP
     port: 80
-
+  
+  - name: https
+    protocol: HTTPS
+    port: 443
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: example-tls   # cert-manager will create this when it sees no secret exsist
 
