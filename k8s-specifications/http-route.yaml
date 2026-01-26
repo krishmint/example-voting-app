@@ -1,0 +1,12 @@
+kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: vote-app-route
+spec:
+  parentRefs:
+  - name: voting-api-gateway   # Must match the Gateway name above
+  rules:
+  - backendRefs:
+    - name: vote  # Your existing ClusterIP service name
+      port: 5000             # The port exposed by your service
+

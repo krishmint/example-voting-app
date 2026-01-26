@@ -1,0 +1,12 @@
+kind: Gateway
+apiVersion: gateway.networking.k8s.io/v1
+metadata:
+  name: voting-api-gateway
+spec:
+  gatewayClassName: gke-l7-global-external-managed  # Use 'gke-l7-rilb' for internal
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+
+
